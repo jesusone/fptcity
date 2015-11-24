@@ -1,0 +1,354 @@
+/* ==========================================================================
+    Style Button
+========================================================================== */
+$preset-purple-color: #ad8bbf;
+$preset-crimson-color: #e86211;
+$preset-gray-color: #909090;
+.btn, button, .button, input[type="submit"] {
+    line-height: 1;
+    display: inline-block;
+    outline: medium none;
+    text-decoration: none;
+    color: #999;
+    @include transition(all 300ms linear 0ms);
+    @extend .bg-effect-xs;
+    font-weight: 400;
+    border: 1px solid #ddd;
+    line-height: 1.65;
+}
+.btn-transparent{
+    background: transparent!important;
+}
+.btn-background-primary{
+    background: $primary_color;
+}
+.btn-border-width-2px{
+    border-width: 2px!important;
+}
+.btn-style-1{
+    font-weight: bold !important;
+}
+.btn-style-2{
+    font-weight: 400!important;
+    font-size: 14px !important ;
+}
+.btn-style-3{
+    @extend .btn-style-1;
+    font-size: 18px !important;
+    @include breakpoint-max(360px){
+        font-size: 16px !important;
+    }
+}
+.btn-style-4{
+    @extend .btn-style-1;
+    font-size: 24px !important;
+}
+.btn-style-5{
+    @extend .btn-style-1;
+    font-size: 40px !important;
+}
+@include breakpoint-in(768px,1200px){
+    .on-column-2 .btn{
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+}
+.btn {
+    &.btn-primary {
+        border-color: $primary_color;
+        &.btn-border-2{
+            @extend .btn-border-width-2px;
+        }
+    }
+    &.btn-primary-transparent{
+        @extend .btn-transparent;
+        color: $primary_color;
+        &:hover, &:focus{
+            @extend .btn-background-primary;
+            color: #000;
+        }
+        &.btn-border-2{
+            @extend .btn-border-width-2px;
+        }
+    }
+    /* Button White */
+    &.btn-white {
+        border-color: #fff; color: #000; background: #fff;
+        &:hover, &:focus{
+            @extend .btn-transparent; color: #fff; border-color: #fff;
+        }
+    }
+    &.btn-white-transparent{
+        @extend .btn-transparent; border-color: #fff; color: #fff;
+        &.btn-border-2{
+            @extend .btn-border-width-2px;
+        }
+        &:hover, &:focus{
+            background: #fff; color: #000; border-color: #fff;
+        }
+    }
+    /* Button Gray */
+    &.btn-gray{
+        background: $preset-gray-color; color: #fff; border-color: $preset-gray-color;
+        &:hover, &:focus{
+            @extend .btn-transparent;
+            color: $preset-gray-color; border-color: $preset-gray-color;
+        }
+    }
+    &.btn-gray-transparent{
+        @extend .btn-transparent; border-color: $preset-gray-color; color: #000;
+        &.btn-border-2{
+            @extend .btn-border-width-2px;
+        }
+        &:hover, &:focus{
+            background: $preset-gray-color!important; color: #000; border-color: $preset-gray-color;
+        }
+    }
+    /* Button Black */
+    &.btn-black{
+        background: #000; color: #fff; border-color: #000;
+        &:hover, &:focus{
+            @extend .btn-transparent; color: #000; border-color: #000;
+        }
+    }
+    &.btn-black-transparent{
+        background: transparent;
+        color: #000;
+        border-color: #000;
+        &:hover, &:focus{
+            @extend .btn-transparent; color: $primary_color; border-color: #000;
+        }
+    }
+    /* Button Crimson */
+    &.btn-crimson {
+        background: $preset-crimson-color; color: #fff; border-color: $preset-crimson-color;
+        &:hover, &:focus{
+            @extend .btn-transparent;
+            color: $preset-crimson-color; border-color: $preset-crimson-color;
+        }
+    }
+    /* Button Purple */
+    &.btn-purple {
+        background: $preset-purple-color; color: #fff; border-color: $preset-purple-color;
+        &:hover, &:focus{
+            @extend .btn-transparent;
+            color: $preset-purple-color; border-color: $preset-purple-color;
+        }
+    }
+    /* Button Green */
+    &.btn-green{
+        background: #a9b876; color: #fff; border-color: #a9b876;
+        &:hover, &:focus{
+            @extend .btn-transparent; color: #a9b876; border-color: #a9b876;
+        }
+    }
+    &.btn-large{
+        font-size: 30px;
+        @extend .btn-style-1;
+    }
+    &.btn-readmore{
+        padding: 17px 34px; letter-spacing: 0.2em;
+        border-width: 2px;
+    }
+    &.btn-readmore-2{
+        font-weight: bold; letter-spacing: 0.1em;
+        padding: 13px 16px;
+    }
+    &.btn-sendme{
+        padding: 14px 42px;
+    }
+}
+.btn:hover, button:hover, .button:hover, input[type="submit"]:hover,.btn:focus, button:focus, .button:focus, input[type="submit"]:focus {
+    outline: medium none;
+    text-decoration: none;
+}
+
+/* Custom VC Button */
+/* Button default */
+.zo_button {
+    .vc_general {
+        text-align: center;
+        font-size: 14px;
+        &.vc_btn3 {
+            border-color: #000;
+            &:hover{
+                i{
+                    border: 1px solid transparent;
+                }
+                &.btn-border-2 i{
+                    border: 2px solid transparent;
+                }				
+            }
+            &.btn-border-2{
+                @extend .btn-border-width-2px;
+            }
+            &.vc_btn3-block {
+                padding-left: 0;
+                padding-right: 0;
+                text-align: center;
+            }
+            &.btn-primary {
+                @extend .btn.btn-primary;
+            }
+            &.btn-primary-transparent{
+                @extend .btn.btn-primary-transparent;
+            }
+            /* Button White */
+            &.btn-white {
+                @extend .btn.btn-white;
+            }
+            &.btn-white-transparent{
+                @extend .btn.btn-white-transparent;
+            }
+            /* Button Gray */
+            &.btn-gray{
+                @extend .btn.btn-gray;
+            }
+            &.btn-gray-transparent{
+                @extend .btn.btn-gray-transparent;
+            }
+            /* Button Black */
+            &.btn-black{
+                @extend .btn.btn-black;
+            }
+            /* Button Green */
+            &.btn-green{
+                @extend .btn.btn-green;
+            }
+            /* Button Crimson */
+            &.btn-crimson{
+                @extend .btn.btn-crimson;
+            }
+            /* Button Purple */
+            &.btn-purple{
+                @extend .btn.btn-purple;
+            }
+        }
+        /* Button with icon */
+        .vc_btn3-icon{
+            height: 100% !important;
+            width: 53px; position: absolute !important;
+            text-align: center;
+            @include transition(all 200ms linear 0ms);
+            &:before{
+                font-size: 20px;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                @include transform(translate(-50%, -50%));
+            }
+        }
+        &.vc_btn3-icon-right{
+            i{ 
+                @include btn-border-icon(left, 1px, #000);
+                right: 0; 
+            }
+            &.btn-border-2 i{
+                @include btn-border-icon(left, 2px, #000);				
+            }
+            &.btn-primary i, &.btn-primary-transparent i{
+                @include btn-border-icon(left, 1px, $primary_color);
+                background: #dc9e02;
+            }
+            &.btn-border-2.btn-primary i, &.btn-border-2.btn-primary-transparent i{
+                @include btn-border-icon(left, 2px, $primary_color);
+                background: #dc9e02;
+            }
+            &.btn-white i, &.btn-white-transparent i{
+                @include btn-border-icon(left, 1px, #fff);
+            }
+            &.btn-border-2.btn-white i, &.btn-border-2.btn-white-transparent i{
+                @include btn-border-icon(left, 2px, #fff);
+            }
+            &.btn-gray i, &.btn-gray-transparent i{
+                @include btn-border-icon(left, 1px, $preset-gray-color);
+            }
+            &.btn-border-2.btn-gray i, &.btn-border-2.btn-gray-transparent i{
+                @include btn-border-icon(left, 2px, $preset-gray-color);
+            }
+            &.btn-black i{
+                @include btn-border-icon(left, 1px, #000);
+                background: #333;
+            }
+            &.btn-border-2.btn-black i{
+                @include btn-border-icon(left, 2px, #000);
+                background: #333;
+            }
+        }
+        &.vc_btn3-icon-left{
+            i{ 
+                @include btn-border-icon(right, 1px, #000);
+                left: 0; 
+            }
+            &.btn-border-2 i{
+                @include btn-border-icon(right, 2px, #000);				
+            }
+            &.btn-primary i, &.btn-primary-transparent i{
+                @include btn-border-icon(right, 1px, $primary_color);
+                background: #dc9e02;
+            }
+            &.btn-border-2.btn-primary i, &.btn-border-2.btn-primary-transparent i{
+                @include btn-border-icon(right, 2px, $primary_color);
+                background: #dc9e02;
+            }
+            &.btn-white i, &.btn-white-transparent i{
+                @include btn-border-icon(right, 1px, #000);
+            }
+            &.btn-border-2.btn-white i, &.btn-border-2.btn-white-transparent i{
+                @include btn-border-icon(right, 2px, #000);
+            }
+            &.btn-gray i, &.btn-gray-transparent i{
+                @include btn-border-icon(right, 1px, #bdbdbd);
+            }
+            &.btn-border-2.btn-gray i, &.btn-border-2.btn-gray-transparent i{
+                @include btn-border-icon(right, 2px, #bdbdbd);
+            }
+            &.btn-black i{
+                @include btn-border-icon(right, 1px, #000);
+                background: #333;
+            }
+            &.btn-border-2.btn-black i{
+                @include btn-border-icon(right, 2px, #000);
+                background: #333;
+            }
+        }
+    } 
+    &.btn-creative-theme-large{
+        .vc_general{
+            &.vc_btn3{
+                font-size: 30px !important;
+                font-weight: bold; color: #fff;
+                border-width: 3px !important;
+                line-height: 30px;
+                @include border-color-opacity(#bdbdbd, 0.5);
+                &:hover{
+                    background: #a9b876;
+                }
+            }
+        }
+    }
+    &.btn-text-black{
+        .vc_general {
+            text-align: center;
+            font-size: 14px;
+            &.vc_btn3.btn {
+                color: #000!important;
+                &:hover {
+                    color: $primary_color!important;
+                }
+            }
+        }
+    }
+}
+@include breakpoint-max(768px){
+    .btn-parallax-scrolling .btn{
+        padding-left: 15px !important;
+        padding-right: 15px !important;
+    }
+}
+.vc_btn3.vc_btn3-shape-rounded {
+    border-radius: 5px ! important;
+}
+/* ==========================================================================
+    End Style Button
+========================================================================== */

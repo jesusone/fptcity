@@ -1,0 +1,155 @@
+#comments {
+	.comments-title, .comment-reply-title {
+	    margin: 0 0 65px;
+	    padding-bottom: 12px;
+		color: #141414;
+        position: relative;
+        @extend .font-second;
+        font-size: 24px;
+        font-style: italic;
+        font-weight: 700;
+        border-bottom: 2px solid #141414;
+        line-height: normal;
+        letter-spacing: 0;
+        &:before {
+            content: '';
+            width: 11px;
+            height: 11px;
+            display: inline-block;
+            background-color: $primary_color;
+            margin-right: 20px;
+            @include transform(rotate(45deg));
+        }
+	}
+    .comments-title {
+        margin-top: 80px;
+    }
+	.comment-reply-title {
+		margin-top: 50px;
+	}
+	.comment-list {
+		list-style: none;
+		padding: 0;
+		margin: 0 0 28px;
+        li {
+            position: relative;
+            list-style: none;
+        }
+        .comment-body {
+            padding-bottom: 25px;
+            margin-bottom: 25px;
+            overflow: hidden;
+            .comment-author-image {
+                float: left;
+                max-width: 70px;
+                img {
+                    height: 70px;
+                    width: 70px;
+                    @include border-radius(100%);
+                }
+            }
+        }
+        .comment-main {
+            margin-left: 100px;
+            color: #272727;
+            padding: 15px 40px 25px;
+            border: 1px solid #ececec;
+            @media screen and (max-width: 767px) {
+                margin-left: 0;
+            }
+            .comment-header {
+                .comment-author {
+                    font-size: 12px;
+                    line-height: 60px;
+					@include breakpoint-max(1200px){
+						line-height: 1.5;
+					}
+                    color: $primary_color;
+                    text-transform: uppercase;
+                    letter-spacing: 0.1em;
+                    a {
+                        color: $primary_color;
+                    }
+                }
+                .comment-date {
+                    color: #6f6f6f;
+                    font-size: 11px;
+                    line-height: 24px;
+                }
+                .comment-awaiting-moderation {
+                    font-size: 10px;
+                    color: $primary_color;
+                }
+            }
+            .comment-content {
+                color: #272727;
+                @extend .font-second;
+                font-size: 18px;
+                font-style: italic;
+                margin-bottom: 15px;
+            }
+            .reply {
+                text-align: right;
+                font-size: 12px;
+                letter-spacing: 0.1em;
+                text-transform: uppercase;
+            }
+        }
+
+		ul.children {
+			padding-left: 130px;
+			position: relative;
+
+			.comment-author-image {
+				max-width: 109px;
+				float: left;
+				padding: 10px 0 20px;
+				background: #fff;
+			}
+		}
+	}
+	#commentform {
+		p {
+			margin: 0 0 10px;
+            input[type="text"], textarea {
+                @include border-radius(0);
+                font-size: 13px;
+                border-color: #ebebeb;
+                &:focus {
+                    border-color: $primary_color;
+                }
+            }
+            label {
+                @extend .font-second;
+                font-size: 12px;
+                font-style: italic;
+                letter-spacing: 0.1em;
+                color: #141414;
+                text-transform: uppercase;
+            }
+            &.comment-form-author,
+            &.comment-form-url,
+            &.comment-form-email {
+                width: 33.33%;
+                float: left;
+                padding-right: 30px;
+                @media screen and (max-width: 767px) {
+                    width: 100%;
+                    padding-right: 0;
+                }
+            }
+            &.comment-form-url {
+                padding-right: 0;
+            }
+            &.comment-form-comment {
+                clear: both;
+				margin-bottom: 30px;
+			}
+            &.form-submit {
+                text-align: right;
+            }
+		}
+	}
+}
+
+.single #comments { margin-bottom: 100px; }
