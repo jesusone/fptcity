@@ -23,46 +23,8 @@ function zo_theme_register_required_plugins() {
      * Array of plugin arrays. Required keys are name and slug.
      * If the source is NOT from the .org repo, then source is also required.
      */
-	$root = 'http://demo.drupalexp.com/wordpress/plugins/';
+	
     $plugins = array(
-        array(
-            'name'               => 'DrupalEXP',
-            'slug'               => 'drupalexp',
-            'source'             => $root .'drupalexp.zip',
-            'required'           => true,
-        ),
-        array(
-            'name'               => 'Visual Composer',
-            'slug'               => 'js_composer',
-            'source'             => $root .'js_composer.zip',
-            'required'           => true,
-        ),
-        array(
-            'name'      		 => 'Custom Post Type UI',
-            'slug'       		 => 'custom-post-type-ui',
-            'required'  		 => true,
-        ),
-        array(
-            'name'               => 'Revolution Slider',
-            'slug'               => 'revslider',
-            'source'             => $root .'revslider.zip',
-            'required'           => false,
-        ),
-        array(
-            'name'               => 'WooCommerce - excelling eCommerce',
-            'slug'               => 'woocommerce',
-            'required'           => false,
-        ),
-        array(
-            'name'               => 'Contact Form 7',
-            'slug'               => 'contact-form-7',
-            'required'           => false,
-        ),
-        array(
-            'name'               => 'Newsletter',
-            'slug'               => 'newsletter',
-            'required'           => false,
-        ),
     );
 
     /**

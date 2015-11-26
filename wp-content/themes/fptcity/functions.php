@@ -231,7 +231,7 @@ add_filter('image_size_names_choose', 'zo_media_image_sizes');
  */
 function zo_meta_data() {
     global $post, $zo_meta;
-
+	
     if (!isset($post->ID))
         return;
 
