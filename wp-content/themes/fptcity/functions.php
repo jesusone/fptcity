@@ -974,42 +974,188 @@ function zo_searchfilter($query) {
     }
     return $query;
 }
-
 add_filter('pre_get_posts', 'zo_searchfilter');
 
-/* Filter style loader tag, add attribute property */
-add_filter('style_loader_tag', 'slick_style_loader_tag');
+/**
+ * 		Add User Role Meta Box
+ */
+function zo_user_role_meta_box() {
+	$screens = array( 'post', 'page' );
+	foreach ( $screens as $screen ) {
 
-function slick_style_loader_tag($tag) {
-    return preg_replace("/id='zo-slick-css-css'/", "property='stylesheet' id='zo-slick-css-css'", $tag);
+		add_meta_box(
+			'_zo_user_role',
+			__( 'User Role', 'fptcity' ),
+			'user_role_meta_box_callback',
+			$screen
+		);
+	}
 }
+add_action( 'add_meta_boxes', 'zo_user_role_meta_box' );
 
-add_filter('style_loader_tag', 'wp_mediaelement_style_loader_tag');
-
-function wp_mediaelement_style_loader_tag($tag) {
-    return preg_replace("/id='wp-mediaelement-css'/", "property='stylesheet' id='wp-mediaelement-css'", $tag);
+function user_role_meta_box_callback( $post ) {
+	/*
+	 * Use get_post_meta() to retrieve an existing value
+	 * from the database and use the value for the form.
+	 */
+	$value = get_post_meta( $post->ID, '_zo_user_role', true );
+	echo '<label for="user_role_field">';
+	_e( 'Default: 1,2,3,4,5 (Admin: 1, Khách Hàng: 2, Đối Tác: 3, Khách Vãn Lai: 4, Người xem: 5)', 'ftpcity' );
+	echo '</label> ';
+	echo '<input type="text" id="user_role_field" name="user_role_field" value="' . esc_attr( $value ) . '" size="25" />';
 }
-
-add_filter('style_loader_tag', 'mediaelement_style_loader_tag');
-
-function mediaelement_style_loader_tag($tag) {
-    return preg_replace("/id='mediaelement-css'/", "property='stylesheet' id='mediaelement-css'", $tag);
+ 
+function user_role_save_meta_box_data( $post_id ) {
+	// If this is an autosave, our form has not been submitted, so we don't want to do anything.
+	if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+		return;
+	}	
+	// Make sure that it is set.
+	if ( ! isset( $_POST['user_role_field'] ) ) {
+		return;
+	}
+	// Sanitize user input.
+	$my_data = sanitize_text_field( $_POST['user_role_field'] );
+	// Update the meta field in the database.
+	update_post_meta( $post_id, '_zo_user_role', $my_data );
 }
+add_action( 'save_post', 'user_role_save_meta_box_data' );
 
-add_filter('style_loader_tag', 'prettyphoto_style_loader_tag');
+/**
+ * 		Add Public / Private Meta Box
+ */
+function zo_public_or_private_meta_box() {
+	$screens = array( 'post', 'page' );
+	foreach ( $screens as $screen ) {
 
-function prettyphoto_style_loader_tag($tag) {
-    return preg_replace("/id='prettyphoto-css'/", "property='stylesheet' id='prettyphoto-css'", $tag);
+		add_meta_box(
+			'_zo_public_or_private',
+			__( 'Public / Private', 'fptcity' ),
+			'public_or_private_meta_box_callback',
+			$screen
+		);
+	}
 }
+add_action( 'add_meta_boxes', 'zo_public_or_private_meta_box' );
 
-add_filter('style_loader_tag', 'vc_carousel_style_loader_tag');
-
-function vc_carousel_style_loader_tag($tag) {
-    return preg_replace("/id='vc_carousel_css-css'/", "property='stylesheet' id='vc_carousel_css-css'", $tag);
+function public_or_private_meta_box_callback( $post ) {
+	/*
+	 * Use get_post_meta() to retrieve an existing value
+	 * from the database and use the value for the form.
+	 */
+	$value = get_post_meta( $post->ID, '_zo_public_or_private', true );
+	?>
+		<select id="user_public_or_private" name="user_public_or_private">
+			<option value="1" <?php echo ($value) == 1 ? 'selected' : ''; ?>><?php _e('Public','fptcity');?></option>
+			<option value="0" <?php echo ($value) == 0 ? 'selected' : ''; ?>><?php _e('Private','fptcity');?></option>
+		</select>
+	<?php
 }
-
-add_filter('style_loader_tag', 'font_awesome_style_loader_tag');
-
-function font_awesome_style_loader_tag($tag) {
-    return preg_replace("/id='font-awesome-css'/", "property='stylesheet' id='font-awesome-css'", $tag);
+ 
+function public_or_private_save_meta_box_data( $post_id ) {
+	// If this is an autosave, our form has not been submitted, so we don't want to do anything.
+	if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+		return;
+	}	
+	// Make sure that it is set.
+	if ( ! isset( $_POST['user_public_or_private'] ) ) {
+		return;
+	}
+	// Sanitize user input.
+	$my_data = sanitize_text_field( $_POST['user_public_or_private'] );
+	// Update the meta field in the database.
+	update_post_meta( $post_id, '_zo_public_or_private', $my_data );
 }
+add_action( 'save_post', 'public_or_private_save_meta_box_data' );
+
+/**
+ * 		Add Type Of Copy Meta Box
+ */
+function zo_type_of_copy_meta_box() {
+	$screens = array( 'post', 'page' );
+	foreach ( $screens as $screen ) {
+
+		add_meta_box(
+			'_zo_type_of_copy',
+			__( 'Type of Copy', 'fptcity' ),
+			'type_of_copy_meta_box_callback',
+			$screen
+		);
+	}
+}
+add_action( 'add_meta_boxes', 'zo_type_of_copy_meta_box' );
+
+function type_of_copy_meta_box_callback( $post ) {
+	/*
+	 * Use get_post_meta() to retrieve an existing value
+	 * from the database and use the value for the form.
+	 */
+	$value = get_post_meta( $post->ID, '_zo_type_of_copy', true );
+	?>
+		<select id="user_type_of_copy" name="user_type_of_copy">
+			<option value="0" <?php echo ($value) == 0 ? 'selected' : ''; ?>><?php _e('Default','fptcity');?></option>
+			<option value="1" <?php echo ($value) == 1 ? 'selected' : ''; ?>><?php _e('Bao Moi','fptcity');?></option>
+		</select>
+	<?php
+}
+ 
+function type_of_copy_save_meta_box_data( $post_id ) {
+	// If this is an autosave, our form has not been submitted, so we don't want to do anything.
+	if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+		return;
+	}	
+	// Make sure that it is set.
+	if ( ! isset( $_POST['user_type_of_copy'] ) ) {
+		return;
+	}
+	// Sanitize user input.
+	$my_data = sanitize_text_field( $_POST['user_type_of_copy'] );
+	// Update the meta field in the database.
+	update_post_meta( $post_id, '_zo_type_of_copy', $my_data );
+}
+add_action( 'save_post', 'type_of_copy_save_meta_box_data' );
+
+/**
+ * 		Add Source Meta Box
+ */
+function zo_source_meta_box() {
+	$screens = array( 'post', 'page' );
+	foreach ( $screens as $screen ) {
+
+		add_meta_box(
+			'_zo_get_source',
+			__( 'Get Source', 'fptcity' ),
+			'source_meta_box_callback',
+			$screen
+		);
+	}
+}
+add_action( 'add_meta_boxes', 'zo_source_meta_box' );
+
+function source_meta_box_callback( $post ) {
+	/*
+	 * Use get_post_meta() to retrieve an existing value
+	 * from the database and use the value for the form.
+	 */
+	$value = get_post_meta( $post->ID, '_zo_get_source', true );
+	echo '<label for="source_field">';
+	_e( 'Source:' );
+	echo '</label> ';
+	echo '<input type="text" id="source_field" name="source_field" value="' . esc_attr( $value ) . '" size="25" />';
+}
+ 
+function source_save_meta_box_data( $post_id ) {
+	// If this is an autosave, our form has not been submitted, so we don't want to do anything.
+	if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+		return;
+	}	
+	// Make sure that it is set.
+	if ( ! isset( $_POST['source_field'] ) ) {
+		return;
+	}
+	// Sanitize user input.
+	$my_data = sanitize_text_field( $_POST['source_field'] );
+	// Update the meta field in the database.
+	update_post_meta( $post_id, '_zo_get_source', $my_data );
+}
+add_action( 'save_post', 'source_save_meta_box_data' );

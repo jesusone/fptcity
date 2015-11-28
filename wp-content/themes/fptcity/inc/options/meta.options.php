@@ -26,7 +26,6 @@ class ZOMetaOptions
     /* add meta boxs */
     public function add_meta_boxes()
     {
-        $this->add_meta_box('template_post_options', __('Setting', 'fptcity'), 'post');
         $this->add_meta_box('template_page_options', __('Setting', 'fptcity'), 'page');
     }
     
@@ -34,37 +33,6 @@ class ZOMetaOptions
     {
         add_meta_box('_zo_' . $id, $label, array($this, $id), $post_type, $context, $priority);
     }
-    /* --------------------- POST ---------------------- */
-    function template_post_options() {
-		?>
-		<div class="tab-container clearfix">
-	        <ul class='etabs clearfix'>
-	           <li class="tab"><a href="#tabs-general"><i class="fa fa-server"></i><?php _e('General', 'fptcity'); ?></a></li>
-	        </ul>
-			<div class='panel-container'>
-                <div id="tabs-general">
-					<?php 
-						zo_options(array(
-							'id' => 'source_of_post',
-							'label' => __('Source: ','fptcity'),
-							'type' => 'text'
-						));
-						zo_options(array(
-							'id' => 'type_copy',
-							'label' => __('Type: ','fptcity'),
-							'type' => 'select',
-							'options' => array(
-								'' => 'default',
-								'fptcity' => 'Fpt City',
-								'baomoi' => 'Bao Moi'
-							)
-						));
-					?>
-				</div>
-			</div>
-		</div>
-		<?php
-	}
 	
     /* --------------------- PAGE ---------------------- */
     function template_page_options() {
