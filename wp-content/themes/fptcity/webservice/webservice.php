@@ -1,5 +1,6 @@
 <?php
 require( get_template_directory() . '/webservice/class/webservice-class.php' );
+require( get_template_directory() . '/webservice/webservice-user.php' );
 $objService = new zo_webservice();
 
 /*
