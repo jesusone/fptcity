@@ -12,13 +12,21 @@ class zo_webservice extends stdClass {
                     'methods' => 'GET',
                     'callback' => 'zo_get_lists_news',
                 ),
-				
+                /*	get one post*/
 				array(
                     'namespace' => 'zo_news',
                     'routename' => 'new/(?P<id>[\d]+)',
                     'methods' => 'GET',
                     'callback' => 'zo_get_new_detail',
                 ),
+                //Post new
+                 array(
+                    'namespace' => 'zo_news',
+                    'routename' => '/new',
+                    'methods' => 'POST',
+                    'callback' => 'zo_add_or_update_new',
+                ),
+                                
                 array(
                     'namespace' => 'zo_news',
                     'routename' => '/categories/(?P<id>[\d]+)',
@@ -50,6 +58,24 @@ class zo_webservice extends stdClass {
 			});
 		}           
     } 
+    public function zo_insert_image($input,$post_id){
+       
+        if($input) {
+            foreach ($input as $file => $array) {
+               
+                if ($input[$file]['error'] !== UPLOAD_ERR_OK) {
+                    return "upload error.";
+                }
+                  
+                require_once( ABSPATH . 'wp-admin/includes/image.php' );
+                require_once( ABSPATH . 'wp-admin/includes/file.php' );
+                require_once( ABSPATH . 'wp-admin/includes/media.php' );
+                $attach_id =  media_handle_upload( $file, $post_id );
+                update_post_meta($post_id,'_thumbnail_id',$attach_id);
+                return $attach_id;
+             }   
+         }
+    }
 	
 }
 ?>
