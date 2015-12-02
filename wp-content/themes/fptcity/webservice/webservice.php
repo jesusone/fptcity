@@ -1,11 +1,11 @@
 <?php
 require( get_template_directory() . '/webservice/class/webservice-class.php' );
+require( get_template_directory() . '/webservice/webservice-user.php' );
 $objService = new zo_webservice();
 
 /*
 ************ 1. Get List
 */
-
 /*
 * 	Get all news
 */
@@ -16,7 +16,7 @@ function zo_get_lists_news($request) {
 	$role = (isset($request['roleId'])) ? $request['roleId'] : '5' ;
 	$category = (isset($request['Category'])) ? $request['Category'] : '' ;
 	$paged = (isset($request['pageId'])) ? $request['pageId'] : 1 ;
-    $postType = (isset($request['postType'])) ? $request['postType'] : 'post' ;
+        $postType = (isset($request['postType'])) ? $request['postType'] : 'post' ;
 	$cat_query  = "";
 	if($category) {
 		$cat_array = array($category);
@@ -25,7 +25,7 @@ function zo_get_lists_news($request) {
 	
 	
 	$args = array(
-        'post_type'=> $postType,	
+        'post_type'=> $postType,
 		'posts_per_page' => 2,
 		'orderby' => 'date',
 		'paged'  => $paged,
@@ -47,7 +47,6 @@ function zo_get_lists_news($request) {
 		$cat_query
 		 
 	);
-	
 	query_posts( $args ); 
 	if ( have_posts() ) {	
 		$json = array();
@@ -80,11 +79,67 @@ function zo_get_lists_news($request) {
 }
 
 /*
+*  All post  
+*/
+function zo_add_or_update_new($request){
+   
+   $userId = ($request['userId']) ? $request['userId']: 1; 
+   $postType = ($request['postType']) ? $request['postType']: 1; 
+   $category = ($request['category']) ? $request['category']: 1; 
+   $id = ($request['id']) ? $request['id']: 0;
+   $category = explode(',',$category); 
+   $json = array();
+   if(count($category) > 1 ) {
+       foreach($category as $cat =>$val){
+           array_push($post_category,$val);
+       }
+   }else{
+     $post_category =  $request['category'] ; 
+   }
+ 
+   $my_post = array(
+  'post_title'    => $request['title'],
+  'post_content'  => $request['category'],
+  'post_status'   => 'publish',
+  'post_author'   => $userId,
+  'post_category' => $post_category,
+   'post_type' => $postType
+);
+  
+// Insert the post into the database
+
+if($id == 0){
+    $post_id =  wp_insert_post( $my_post );  
+    if($post_id > 0) {
+          $json['status'] = 1;  
+          $zo_service = new zo_webservice();
+            $image = $zo_service->zo_insert_image($_FILES,$post_id);
+            if($image < 0) {
+              $json['message'] = $image;  
+                $json['status'] = 0;  
+            }
+        
+    }
+    else {
+          $json['status'] = 0;
+    } 
+    
+    return $json;
+}
+else { //Update
+    
+}
+ 
+ 
+  
+}
+/*
 * 	Get Categories
 */
 function zo_get_list_categories($request) {
     global $wp_query;
-	print_r($request); die();
+
+    
 	$args = array(
 		'posts_per_page' => 10,
 		'cat' => $request['id']
@@ -203,5 +258,6 @@ function zo_get_new_detail($request) {
 		return $json;
 	}
 }
+
 
 ?>
