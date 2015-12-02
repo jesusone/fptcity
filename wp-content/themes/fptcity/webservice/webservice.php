@@ -12,10 +12,11 @@ $objService = new zo_webservice();
 function zo_get_lists_news($request) {
     global $wp_query;
 	
-	$public = (isset($request['userId'])) ? $request['userId'] : '1' ; 
+	$public = (isset($request['postRole'])) ? $request['postRole'] : '1' ; 
 	$role = (isset($request['roleId'])) ? $request['roleId'] : '5' ;
 	$category = (isset($request['Category'])) ? $request['Category'] : '' ;
-	$paged = (isset($request['paged'])) ? $request['paged'] : 1 ;
+	$paged = (isset($request['pageId'])) ? $request['pageId'] : 1 ;
+    $postType = (isset($request['postType'])) ? $request['postType'] : 'post' ;
 	$cat_query  = "";
 	if($category) {
 		$cat_array = array($category);
@@ -24,7 +25,8 @@ function zo_get_lists_news($request) {
 	
 	
 	$args = array(
-		'posts_per_page' => 10,
+        'post_type'=> $postType,	
+		'posts_per_page' => 2,
 		'orderby' => 'date',
 		'paged'  => $paged,
 		'order' => 'DESC',
@@ -45,8 +47,6 @@ function zo_get_lists_news($request) {
 		$cat_query
 		 
 	);
-	
-	
 	
 	query_posts( $args ); 
 	if ( have_posts() ) {	
@@ -71,7 +71,6 @@ function zo_get_lists_news($request) {
 			$json[$i]['public_or_private'] = get_post_meta( get_the_ID(), '_zo_public_or_private', true );
 			$json[$i]['type_of_copy'] = get_post_meta( get_the_ID(), '_zo_type_of_copy', true );
 			$json[$i]['get_source'] = get_post_meta( get_the_ID(), '_zo_get_source', true );
-			$json[$i]['page'] = $paged + 1;
 			
 			$i++;			
 		endwhile;
